@@ -44,23 +44,6 @@ def computer_MW_formula(frament_dict, atom2mass):
         mass += atom2mass[atom] * int(frament_dict[atom])
     return mass
 
-def extra_atoms(formula, smiles=None):
-    atom_dict = {}
-    pattern = re.compile(r'[A-Z][a-z]?[0-9]*')
-    items = pattern.findall(formula)
-    for item in items:
-        pattern = re.compile(r'[A-Z][a-z]?')
-        atom = pattern.findall(item)[0]
-        pattern = re.compile(r'[0-9]+')
-        num = pattern.findall(item)
-        if len(num) != 0:
-            num = num[0]
-        else:
-            num = 1
-        atom_dict[atom] = num
-    
-    return atom_dict
-
 def replace_halogen(string):
     '''将cl br替换, 便于切片处理'''
     br = re.compile('Br')
@@ -90,13 +73,6 @@ def extra_atoms(formula):
             num = 1
         atom_dict[atom] = num
     return atom_dict
-
-def process_mz(mz, mz_to_ix):
-    id_mz = []
-    for m in mz:
-        if m in list(mz_to_ix.keys()): id_mz.append(mz_to_ix[m])
-        else: continue 
-    return list(map(int, id_mz))
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--log_path', required=True, type=str)
@@ -217,13 +193,13 @@ for index in real_file.index:
                 'generate': c, 'real': smiles, 'match': match_num[i], 'ecfp': ecfps[i], 'fcfp': fcfps[i], \
                     'rank1':r1, 'rank3': r3, 'rank5':r5, 'rank10': r10, 'rank': i, \
                         }
-            result = result.append(tmp, ignore_index=True)
+            result = pd.concat([result, pd.DataFrame([tmp])], ignore_index=True)
 
     else:
         for i, c in enumerate(candidates):
             tmp = {'mz': real_file.loc[index, 'mz'], \
                 'generate': c, 'rank': i}
-            result = result.append(tmp, ignore_index=True)
+            result = pd.concat([result, pd.DataFrame([tmp])], ignore_index=True)
     print('real:', smiles)
     print('generate:', candidates[0])
     total_num += 1

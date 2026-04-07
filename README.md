@@ -30,7 +30,7 @@ We provide the MSGO model ([pfas](https://pan.baidu.com/s/1J_qllzAsv-dxqD2D28_sL
 
 You can replicate our experiment, including all the techniques:
 ```
-python tools/train.py --id all_trick --user_precurso 1 -- use_mask 1 --use_formual 1
+python tools/train.py --id all_trick --use_precursor 1 --use_mask 1 --use_formula 1
 ```
 More options can be viewed in opt.py
 
@@ -38,7 +38,7 @@ More options can be viewed in opt.py
 
 Download the model weights in ckpts/pfas or ckpts/lipid, run
 ```
-python tools/eval.py --log_path [ckpt/pfas or ckpts/lipid]
+python tools/eval.py --log_path [ckpts/pfas or ckpts/lipid]
 ```
 
 ### Predict real data

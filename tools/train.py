@@ -130,7 +130,7 @@ if __name__ == '__main__':
     print('use_precursor:', args.use_precursor)
     print('use_mask:', args.use_mask)
     print('use_formula:', args.use_formula)
-    print('user_mol_mass:', args.use_mol_mass)
+    print('use_mol_mass:', args.use_mol_mass)
     main(args)
 
 
