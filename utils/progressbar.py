@@ -1,4 +1,4 @@
-'''
+"""
 Author: Zheng Ma
 Date: 2022-02-21 11:17:24
 LastEditTime: 2022-02-21 11:17:24
@@ -6,7 +6,7 @@ LastEditors: Zheng Ma
 Description: 
 FilePath: /smiles_generate/utils/progressbar.py
 
-'''
+"""
 import progressbar
 
 

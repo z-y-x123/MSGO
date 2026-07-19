@@ -1,4 +1,4 @@
-'''
+"""
 Author: Zheng Ma
 Date: 2022-02-19 15:14:24
 LastEditTime: 2022-03-31 10:38:21
@@ -6,7 +6,7 @@ LastEditors: Zheng Ma
 Description: 
 FilePath: /smiles_generate/models/TransModel.py
 
-'''
+"""
 
 import numpy as np
 import torch
@@ -21,10 +21,10 @@ class TransModel(nn.Module):
 
     def make_model(self, mz_size, token_size, mol_mass_size, formula_size, N_enc=6, N_dec=6, 
                d_model=512, d_ff=2048, h=8, dropout=0):
-        "Helper: Construct a model from hyperparameters."
+        """Helper: Construct a model from hyperparameters."""
         c = copy.deepcopy
         attn = MultiHeadedAttention(h, d_model, dropout)
-        ff = PositionwiseFeedForward(d_model, d_ff, dropout)
+        ff = PositionWiseFeedForward(d_model, d_ff, dropout)
         position = PositionalEncoding(d_model, dropout)
 
         
@@ -77,7 +77,7 @@ class TransModel(nn.Module):
         self.pad_idx = opt.pad_idx
         self.unk_idx = opt.token_to_ix['UNK']
 
-        self.model = self.make_model(self.mz_size, self.token_size, self.mol_mass_size, self.formula_size, \
+        self.model = self.make_model(self.mz_size, self.token_size, self.mol_mass_size, self.formula_size,
                                     self.N_enc, self.N_dec, self.d_model, self.d_ff, self.h, self.dropout
                                     )  
 
@@ -200,11 +200,11 @@ class TransModel(nn.Module):
                 beam_seq_table, \
                 beam_seq_logprobs_table,\
                 beam_logprobs_sum_table, \
-                state = beam_step(logprobs, \
-                                beam_size, \
-                                beam_seq_table, \
-                                beam_seq_logprobs_table, \
-                                beam_logprobs_sum_table, \
+                state = beam_step(logprobs,
+                                beam_size,
+                                beam_seq_table,
+                                beam_seq_logprobs_table,
+                                beam_logprobs_sum_table,
                                 state)
 
                 # if time's up... or if end token is reached then copy beams

@@ -1,4 +1,4 @@
-'''
+"""
 Author: Zheng Ma
 Date: 2022-02-22 13:00:11
 LastEditTime: 2022-04-02 21:59:28
@@ -6,7 +6,7 @@ LastEditors: Zheng Ma
 Description: 
 FilePath: /smiles_generate/tools/eval_standard.py
 
-'''
+"""
 
 import torch
 import pandas as pd
@@ -45,7 +45,7 @@ def computer_MW_formula(frament_dict, atom2mass):
     return mass
 
 def replace_halogen(string):
-    '''将cl br替换, 便于切片处理'''
+    """将cl br替换, 便于切片处理"""
     br = re.compile('Br')
     cl = re.compile('Cl')
     string = br.sub('R', string)
@@ -161,9 +161,9 @@ for index in real_file.index:
     #     rank1 += 1
     # continue
 
-    candidates, ecfps, fcfps, match_num = eval_real(model, opt, mz, mz_mask, formula_id, mol_mass, \
-                                    beam_size=eval_args.beam_size, \
-                                    smiles=smiles, formula=formula, precusor=precursor, \
+    candidates, ecfps, fcfps, match_num = eval_real(model, opt, mz, mz_mask, formula_id, mol_mass,
+                                    beam_size=eval_args.beam_size,
+                                    smiles=smiles, formula=formula, precusor=precursor,
                                     rule=eval_args.select_rule
                                     )
     candidates = [Chem.MolToSmiles(Chem.MolFromSmiles(s)) for s in candidates]
@@ -189,15 +189,15 @@ for index in real_file.index:
 
 
         for i, c in enumerate(candidates):
-            tmp = {'mz': real_file.loc[index, 'mz'], 'level': level, \
-                'generate': c, 'real': smiles, 'match': match_num[i], 'ecfp': ecfps[i], 'fcfp': fcfps[i], \
-                    'rank1':r1, 'rank3': r3, 'rank5':r5, 'rank10': r10, 'rank': i, \
+            tmp = {'mz': real_file.loc[index, 'mz'], 'level': level,
+                'generate': c, 'real': smiles, 'match': match_num[i], 'ecfp': ecfps[i], 'fcfp': fcfps[i],
+                    'rank1':r1, 'rank3': r3, 'rank5':r5, 'rank10': r10, 'rank': i,
                         }
             result = pd.concat([result, pd.DataFrame([tmp])], ignore_index=True)
 
     else:
         for i, c in enumerate(candidates):
-            tmp = {'mz': real_file.loc[index, 'mz'], \
+            tmp = {'mz': real_file.loc[index, 'mz'],
                 'generate': c, 'rank': i}
             result = pd.concat([result, pd.DataFrame([tmp])], ignore_index=True)
     print('real:', smiles)

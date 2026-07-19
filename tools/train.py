@@ -1,4 +1,4 @@
-'''
+"""
 Author: Zheng Ma
 Date: 2022-02-19 15:35:00
 LastEditTime: 2022-02-28 12:18:58
@@ -6,7 +6,7 @@ LastEditors: Zheng Ma
 Description: 
 FilePath: /smiles_generate/tools/train.py
 
-'''
+"""
 import torch
 import numpy as np
 import random

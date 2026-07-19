@@ -54,9 +54,9 @@ class BaseModel(nn.Module):
             #logprobs: probabilities augmented after diversity N*bxV
             #beam_size: obvious
             #t        : time instant
-            #beam_seq : tensor contanining the beams
-            #beam_seq_logprobs: tensor contanining the beam logprobs
-            #beam_logprobs_sum: tensor contanining joint logprobs
+            #beam_seq : tensor containing the beams
+            #beam_seq_logprobs: tensor containing the beam logprobs
+            #beam_logprobs_sum: tensor containing joint logprobs
             #OUPUTS:
             #beam_seq : tensor containing the word indices of the decoded captions Nxbxl
             #beam_seq_logprobs : log-probability of each decision made, NxbxlxV
@@ -220,9 +220,9 @@ class BaseModel(nn.Module):
             #logprobsf: probabilities augmented after diversity
             #beam_size: obvious
             #t        : time instant
-            #beam_seq : tensor contanining the beams
-            #beam_seq_logprobs: tensor contanining the beam logprobs
-            #beam_logprobs_sum: tensor contanining joint logprobs
+            #beam_seq : tensor containing the beams
+            #beam_seq_logprobs: tensor containing the beam logprobs
+            #beam_logprobs_sum: tensor containing joint logprobs
             #OUPUTS:
             #beam_seq : tensor containing the word indices of the decoded captions
             #beam_seq_logprobs : log-probability of each decision made, same size as beam_seq

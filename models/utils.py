@@ -1,4 +1,4 @@
-'''
+"""
 Author: Zheng Ma
 Date: 2021-12-02 14:24:11
 LastEditTime: 2022-02-21 13:37:12
@@ -6,7 +6,7 @@ LastEditors: Zheng Ma
 Description: 
 FilePath: /smiles_generate_old/models/utils.py
 
-'''
+"""
 import torch
 
 def repeat_tensors(n, x):
@@ -52,7 +52,7 @@ def length_wu(length, logprobs, alpha=0.):
 
     modifier = (((5 + length) ** alpha) /
                 ((5 + 1) ** alpha))
-    return (logprobs / modifier)
+    return logprobs / modifier
 
 def length_average(length, logprobs, alpha=0.):
     """
@@ -60,7 +60,7 @@ def length_average(length, logprobs, alpha=0.):
     """
     return logprobs / length
 
-# Input: seq, N*D numpy array, with element 0 .. vocab_size. 0 is END token.
+# Input: seq, N*D numpy array, with element 0 ... vocab_size. 0 is END token.
 def decode_sequence(ix_to_word, seq):
     N, D = seq.size()
     out = []
