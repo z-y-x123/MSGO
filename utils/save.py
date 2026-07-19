@@ -1,4 +1,4 @@
-'''
+"""
 Author: Zheng Ma
 Date: 2022-02-21 13:24:53
 LastEditTime: 2022-02-21 13:24:53
@@ -6,7 +6,7 @@ LastEditors: Zheng Ma
 Description: 
 FilePath: /smiles_generate/utils/save.py
 
-'''
+"""
 
 import torch
 import os

@@ -1,4 +1,4 @@
-'''
+"""
 Author: Zheng Ma
 Date: 2022-02-21 11:21:53
 LastEditTime: 2022-05-04 11:05:23
@@ -6,7 +6,7 @@ LastEditors: Zheng Ma
 Description: 
 FilePath: /smiles_generate/utils/eval.py
 
-'''
+"""
 import torch
 import numpy as np
 
@@ -233,7 +233,7 @@ atom2mass = {
 }
 
 def computer_MW_formula(frament_dict, atom2mass):
-    '''计算部分分子式  对应的质量数'''
+    """计算部分分子式  对应的质量数"""
     atoms = frament_dict.keys()
     mass = 0
     for atom in atoms:
@@ -242,12 +242,12 @@ def computer_MW_formula(frament_dict, atom2mass):
 
 
 def Smilestoformula(smi):
-    '''通过smiles计算分子式'''
+    """通过smiles计算分子式"""
     mol = Chem.MolFromSmiles(smi)
     return rdMolHash.MolHash(mol, rdMolHash.HashFunction.MolFormula)
 
 def extra_atoms(formula, smiles=None):
-    '''提取分子式各个原子的个数'''
+    """提取分子式各个原子的个数"""
     atom_dict = {}
     pattern = re.compile(r'[A-Z][a-z]?[0-9]*')
     items = pattern.findall(formula)
@@ -265,7 +265,7 @@ def extra_atoms(formula, smiles=None):
     return atom_dict
 
 def replace_halogen(string):
-    '''将cl br替换，便于切片处理'''
+    """将cl br替换，便于切片处理"""
     br = re.compile('Br')
     cl = re.compile('Cl')
     string = br.sub('R', string)

@@ -1,4 +1,4 @@
-'''
+"""
 Author: Zheng Ma
 Date: 2022-02-18 15:25:59
 LastEditTime: 2022-03-29 15:02:23
@@ -6,7 +6,7 @@ LastEditors: Zheng Ma
 Description: 
 FilePath: /smiles_generate/scripts/prepare_data.py
 
-'''
+"""
 
 import argparse
 import os
@@ -47,7 +47,7 @@ def main(args):
     mz_all, tokens_all, intensity_all, precursor_all, mol_mass_all, formula_all, = [], [], [], [], [], []
     smiles_dict = {}
     
-    # load split infomation
+    # load split information
     with open(args.split_json, 'r') as f:
         infos = json.load(f)
 
@@ -188,12 +188,12 @@ def main(args):
     h5_file.create_dataset('mol_mass', dtype='int', data=mol_mass_arrays)
     h5_file.create_dataset('formula', dtype='int', data=formula_arrays)
 
-    # save vocab and other infomations
+    # save vocab and other information
     json_path = os.path.join(args.output_dir, 'data.json')
-    json_file = {'ix_to_mz': ix_to_mz, 'mz_to_ix': mz_to_ix, \
-                'ix_to_token': ix_to_token, 'token_to_ix': token_to_ix, \
-                'mol_mass_to_ix': mol_mass_to_ix, 'ix_to_mol_mass': ix_to_mol_mass, \
-                'formula_to_ix': formula_to_ix, 'ix_to_formula': ix_to_formula, \
+    json_file = {'ix_to_mz': ix_to_mz, 'mz_to_ix': mz_to_ix,
+                'ix_to_token': ix_to_token, 'token_to_ix': token_to_ix,
+                'mol_mass_to_ix': mol_mass_to_ix, 'ix_to_mol_mass': ix_to_mol_mass,
+                'formula_to_ix': formula_to_ix, 'ix_to_formula': ix_to_formula,
                 'data': infos, 'gts': smiles_dict
                 }
     with open(json_path, 'w') as f:

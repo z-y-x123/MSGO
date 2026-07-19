@@ -1,4 +1,4 @@
-'''
+"""
 Author: Zheng Ma
 Date: 2022-02-21 11:14:42
 LastEditTime: 2022-02-21 11:15:54
@@ -6,7 +6,7 @@ LastEditors: Zheng Ma
 Description: 
 FilePath: /smiles_generate/utils/optim.py
 
-'''
+"""
 
 
 import torch.optim as optim

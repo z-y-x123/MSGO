@@ -1,4 +1,4 @@
-'''
+"""
 Author: Zheng Ma
 Date: 2022-02-19 15:39:15
 LastEditTime: 2022-05-27 14:49:54
@@ -6,7 +6,7 @@ LastEditors: Zheng Ma
 Description: 
 FilePath: /smiles_generate/opt.py
 
-'''
+"""
 
 import argparse
 import os
@@ -26,9 +26,9 @@ parser.add_argument('--use_formula', type=int, default=1)
 parser.add_argument('--use_mol_mass', type=int, default=1)
 
 # load data
-parser.add_argument('--input_json', type=str, \
+parser.add_argument('--input_json', type=str,
     default='./data/lipid/high_p0/data.json')
-parser.add_argument('--input_label_h5', type=str, \
+parser.add_argument('--input_label_h5', type=str,
     default='./data/lipid/high_p0/data.h5')
 
 # save params
@@ -52,13 +52,13 @@ parser.add_argument('--pad_idx', type=int, default=0)
 # optimizer params
 parser.add_argument('--optim', type=str, default='adam')
 parser.add_argument('--learning_rate', type=float, default=4e-4)
-parser.add_argument('--optim_alpha', type=float, default=0.9, \
+parser.add_argument('--optim_alpha', type=float, default=0.9,
     help='alpha for adam')
-parser.add_argument('--optim_beta', type=float, default=0.999, \
+parser.add_argument('--optim_beta', type=float, default=0.999,
     help='beta used for adam')
-parser.add_argument('--optim_epsilon', type=float, default=1e-8, \
+parser.add_argument('--optim_epsilon', type=float, default=1e-8,
     help='epsilon that goes into denominator for smoothing')
-parser.add_argument('--weight_decay', type=float, default=0, \
+parser.add_argument('--weight_decay', type=float, default=0,
     help='weight_decay')
 
 
