@@ -1,4 +1,4 @@
-'''
+"""
 Author: Zheng Ma
 Date: 2022-02-19 16:10:26
 LastEditTime: 2022-02-19 16:10:40
@@ -6,7 +6,7 @@ LastEditors: Zheng Ma
 Description: 
 FilePath: /smiles_generate/utils/loader.py
 
-'''
+"""
 import torch
 
 def build_loader(dataset, split, batch_size, shuffle, num_workers=4):

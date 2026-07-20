@@ -1,4 +1,4 @@
-'''
+"""
 Author: Zheng Ma
 Date: 2022-02-22 10:22:31
 LastEditTime: 2022-05-04 10:46:56
@@ -6,7 +6,7 @@ LastEditors: Zheng Ma
 Description: 
 FilePath: /smiles_generate/tools/eval.py
 
-'''
+"""
 
 import torch
 import argparse
