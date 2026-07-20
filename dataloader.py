@@ -1,4 +1,4 @@
-'''
+"""
 Author: Zheng Ma
 Date: 2022-02-19 15:00:26
 LastEditTime: 2022-02-28 11:19:50
@@ -6,7 +6,7 @@ LastEditors: Zheng Ma
 Description: 
 FilePath: /smiles_generate/dataloader.py
 
-'''
+"""
 from concurrent.futures import process
 import json
 from random import randint, uniform
