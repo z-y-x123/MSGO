@@ -58,9 +58,9 @@ def eval_real(model, opt, mz, mz_mask, formula_id=None, mol_mass=None, beam_size
 
                 if len(candidates) == rank:
                     break
-            match = [0] * rank
+            match_lst = [0] * rank
             if len(candidates) != 0:
-                match[:len(candidates)] = [1] * len(candidates)
+                match_lst[:len(candidates)] = [1] * len(candidates)
 
             if len(candidates) == rank:
                 pass
@@ -73,7 +73,7 @@ def eval_real(model, opt, mz, mz_mask, formula_id=None, mol_mass=None, beam_size
                 ecfps.append(e)
                 fcfps.append(f)
 
-            return candidates, ecfps, fcfps, match
+            return candidates, ecfps, fcfps, match_lst
         elif rule == 'precusor':
             candidates = []
             for bm in range(beam_size):
