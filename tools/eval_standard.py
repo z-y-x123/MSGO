@@ -169,7 +169,7 @@ for index in real_file.index:
     candidates = [Chem.MolToSmiles(Chem.MolFromSmiles(s)) for s in candidates]
 
 
-    if smiles != None:
+    if smiles is not None:
         r1 = smiles in candidates[:1]
         r3 = smiles in candidates[:3]
         r5 = smiles in candidates[:5]

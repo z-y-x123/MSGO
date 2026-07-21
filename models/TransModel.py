@@ -90,11 +90,11 @@ class TransModel(nn.Module):
 
     def prepare_mask(self, mz, tokens, mz_mask, tokens_mask):
 
-        if mz_mask == None:
+        if mz_mask is None:
             mz_mask = mz.new_ones(mz.shape[:2], dtype=torch.long)
         mz_mask = mz_mask.unsqueeze(-2)
 
-        if tokens_mask == None:
+        if tokens_mask is None:
             tokens_mask = (tokens.data != self.eos_idx) & (tokens.data != self.pad_idx)
             tokens_mask[:,0] = 1 # bos
         
