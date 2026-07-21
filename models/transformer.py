@@ -177,11 +177,11 @@ class MultiHeadedAttention(nn.Module):
         if mask is not None:
             # Same mask applied to all h heads.
             mask = mask.unsqueeze(1)
-        nbatches = query.size(0)
+        n_batches = query.size(0)
         
         # 1) Do all the linear projections in batch from d_model => h x d_k 
         query, key, value = \
-            [l(x).view(nbatches, -1, self.h, self.d_k).transpose(1, 2)
+            [l(x).view(n_batches, -1, self.h, self.d_k).transpose(1, 2)
              for l, x in zip(self.linears, (query, key, value))]
         
         # 2) Apply attention on all the projected vectors in batch. 
@@ -190,7 +190,7 @@ class MultiHeadedAttention(nn.Module):
         
         # 3) "Concat" using a view and apply a final linear. 
         x = x.transpose(1, 2).contiguous() \
-             .view(nbatches, -1, self.h * self.d_k)
+             .view(n_batches, -1, self.h * self.d_k)
         return self.linears[-1](x)
 
 class PositionWiseFeedForward(nn.Module):
@@ -238,17 +238,17 @@ class DecodeEmbedding(nn.Module):
         super(DecodeEmbedding, self).__init__()
         self.d_model = d_model
         self.token_embed = nn.Embedding(token_size, d_model)
-        if formula_size != None:
+        if formula_size is not None:
             self.formula_embed = nn.Embedding(formula_size, d_model)
-        if mol_mass_size != None:
+        if mol_mass_size is not None:
             self.mol_mass_embed = nn.Embedding(mol_mass_size, d_model)
         self.pos_encode = PositionalEncoding(d_model, dropout)
 
     def forward(self, tokens, formula=None, mol_mass=None):
         x = self.token_embed(tokens)
-        if formula != None:
+        if formula is not None:
             x += self.formula_embed(formula)
-        if mol_mass != None:
+        if mol_mass is not None:
             x += self.mol_mass_embed(mol_mass)
         x = x * math.sqrt(self.d_model)
         return self.pos_encode(x)
