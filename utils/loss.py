@@ -1,4 +1,4 @@
-'''
+"""
 Author: Zheng Ma
 Date: 2022-02-21 11:16:05
 LastEditTime: 2022-02-21 11:16:05
@@ -6,7 +6,7 @@ LastEditors: Zheng Ma
 Description: 
 FilePath: /smiles_generate/utils/loss.py
 
-'''
+"""
 
 import torch
 import torch.nn as nn
