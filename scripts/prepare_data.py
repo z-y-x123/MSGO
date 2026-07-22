@@ -154,22 +154,22 @@ def main(args):
         intensity.insert(0, 1)
 
         # encode mz and tokens
-        Mi = np.zeros((1,args.mz_length), dtype='int')
-        Ti = np.zeros((1,args.token_length), dtype='int')
-        Ii = np.zeros((1,args.mz_length), dtype='float')
+        mz_index = np.zeros((1,args.mz_length), dtype='int')
+        token_index = np.zeros((1,args.token_length), dtype='int')
+        intensity_index = np.zeros((1,args.mz_length), dtype='float')
 
         for k,w in enumerate(mz):
             if k < args.mz_length:
-                Mi[0, k] = mz_to_ix.get(w, mz_to_ix['UNK'])
-                Ii[0, k] = intensity[k]
+                mz_index[0, k] = mz_to_ix.get(w, mz_to_ix['UNK'])
+                intensity_index[0, k] = intensity[k]
         
         for k,w in enumerate(tokens):
             if k < args.token_length:
-                Ti[0, k] = token_to_ix.get(w, token_to_ix['UNK'])
+                token_index[0, k] = token_to_ix.get(w, token_to_ix['UNK'])
 
-        mz_arrays.append(Mi)
-        tokens_arrays.append(Ti)
-        intensity_arrays.append(Ii)
+        mz_arrays.append(mz_index)
+        tokens_arrays.append(token_index)
+        intensity_arrays.append(intensity_index)
         mol_mass_arrays.append(mol_mass_to_ix.get(mol_mass, mol_mass_to_ix['UNK']))
         formula_arrays.append(formula_to_ix.get(formula, formula_to_ix['UNK']))
     
