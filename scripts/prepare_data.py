@@ -107,7 +107,7 @@ def main(args):
     formula_vocab = [m for m,n in formula_count.items() if n >= args.formula_threshold] 
     print('mz vocab size:', len(mz_vocab))
     print('token vocab size:', len(token_vocab))
-    print('mm vocab size:', len(mol_mass_vocab))
+    print('mol_mass vocab size:', len(mol_mass_vocab))
     print('formula vocab size:', len(formula_vocab))
 
 
