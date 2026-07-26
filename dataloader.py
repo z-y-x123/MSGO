@@ -62,7 +62,7 @@ class SmilesSet(data.Dataset):
         self.formula = self.h5_label_file['formula'][:]
 
         self.num_spectral = len(self.info['data'])
-        self.split_ix = {'train': [], 'val': [], 'test': []}
+        self.split_ix = dict(zip(["train","val","test"],[[],[],[]]))#{'train': [], 'val': [], 'test': []}
         self.split_ix['train'] = self.info['data']['train']
         self.split_ix['val'] = self.info['data']['val']
         self.split_ix['test'] = self.info['data']['test']
@@ -71,10 +71,12 @@ class SmilesSet(data.Dataset):
         print('assigned %d data to split val' %len(self.split_ix['val']))
         print('assigned %d data to split test' %len(self.split_ix['test']))
 
+    def __len__(self):
+        return len(self.info["data"]["train"])+len(self.info["data"]["val"])+len(self.info["data"]["test"])
 
     def __getitem__(self, ix):
 
-        # load mz, token, intensity, fomula,  molecular mass 
+        # load mz, token, intensity, formula,  molecular mass
         token = self.token[ix]
 
             
