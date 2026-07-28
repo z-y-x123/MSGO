@@ -45,21 +45,17 @@ class SmilesSet(data.Dataset):
         print('formula size is ', self.formula_size)
         self.formula_to_ix = self.info['formula_to_ix']
 
-        # load data
-        self.h5_label_file = h5py.File(self.opt.input_label_h5, 'r', driver='core')
-        mz_size = self.h5_label_file['mz'].shape
-        self.mz = self.h5_label_file['mz'][:]
-        self.mz_length = mz_size[1]
-        print('max mz length in data is ', self.mz_length)
+        # prepare to load data
+        self.h5_path=self.opt.input_label_h5
+        with h5py.File(self.h5_path,"r") as self.h5_label_file:
+            mz_size = self.h5_label_file['mz'].shape
+            self.mz_length = mz_size[1]
+            print('max mz length in data is ', self.mz_length)
 
-        token_size = self.h5_label_file['tokens'].shape
-        self.token = self.h5_label_file['tokens'][:]
-        self.token_length = token_size[1]
-        print('max token length in data is ', self.token_length)
-        
-        self.intensity = self.h5_label_file['intensity']
-        self.mol_mass = self.h5_label_file['mol_mass'][:]
-        self.formula = self.h5_label_file['formula'][:]
+            token_size = self.h5_label_file['tokens'].shape
+            self.token_length = token_size[1]
+            print('max token length in data is ', self.token_length)
+        self.h5_label_file=None
 
         self.num_spectral = len(self.info['data'])
         self.split_ix = dict(zip(["train","val","test"],[[],[],[]]))#{'train': [], 'val': [], 'test': []}
@@ -75,6 +71,15 @@ class SmilesSet(data.Dataset):
         return len(self.info["data"]["train"])+len(self.info["data"]["val"])+len(self.info["data"]["test"])
 
     def __getitem__(self, ix):
+        #load h5 file
+        if self.h5_label_file is None:
+            self.h5_label_file = h5py.File(self.h5_path, 'r', driver='core')
+
+        self.mz = self.h5_label_file['mz'][:]
+        self.token = self.h5_label_file['tokens'][:]
+        self.intensity = self.h5_label_file['intensity']
+        self.mol_mass = self.h5_label_file['mol_mass'][:]
+        self.formula = self.h5_label_file['formula'][:]
 
         # load mz, token, intensity, formula,  molecular mass
         token = self.token[ix]
@@ -88,6 +93,10 @@ class SmilesSet(data.Dataset):
             mz, intensity = mz[1:], intensity[1:]
 
         return mz, token, intensity, mol_mass, formula, ix
+
+    def __del__(self):
+        if self.h5_label_file is not None:
+            self.h5_label_file.close()
 
     def collate_func_train(self, batch): 
 

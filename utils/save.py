@@ -17,8 +17,8 @@ def save_model(model, opt, epoch, save_path, append=None):
     save_state['opt'] = opt
     save_state['epoch'] = epoch
     if append:
-        save_path = os.path.join(save_path, 'model'+append+'.tar')
+        save_path = os.path.join(save_path, 'model'+append+'.pth')
     else:
-        save_path = os.path.join(save_path, f'model{epoch}.tar')
+        save_path = os.path.join(save_path, f'model{epoch}.pth')
 
     torch.save(save_state, save_path)

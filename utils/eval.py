@@ -33,9 +33,9 @@ def eval_real_beam1(model, opt, mz, mz_mask):
 def eval_real(model, opt, mz, mz_mask, formula_id=None, mol_mass=None, beam_size=10, smiles=None, formula=None, precusor=None, rule=None, rank=10):
     with torch.no_grad():
         mz, mz_mask = mz.cuda(), mz_mask.cuda()
-        if formula_id != None:
+        if formula_id is not None:
             formula_id = formula_id.unsqueeze(-1).long().cuda()
-        if mol_mass != None:
+        if mol_mass is not None:
             mol_mass = mol_mass.unsqueeze(-1).long().cuda()
         
         seq = model.sample(mz, mz_mask, formula_id, mol_mass, beam_size)[0]
@@ -91,7 +91,7 @@ def eval_real(model, opt, mz, mz_mask, formula_id=None, mol_mass=None, beam_size
             mass_diff = []
             ecfps, fcfps = [], []
 
-            if smiles != None:
+            if smiles is not None:
                 for c in candidates:
                     e, f = ecfp_fcfp(smiles, c[0])
                     ecfps.append(e)
