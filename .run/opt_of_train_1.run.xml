@@ -14,7 +14,7 @@
     <option name="ADD_SOURCE_ROOTS" value="true" />
     <option name="RUN_TOOL" value="" />
     <option name="SCRIPT_NAME" value="$PROJECT_DIR$/tools/train.py" />
-    <option name="PARAMETERS" value="--id &quot;precursor_formula_mol_mass&quot; --max_epoch 10 --flag_metric &quot;accurate&quot; --batch_size 50 --beam_size 1 --use_precursor 1 --use_mask 0 --use_formula 1 --use_mol_mass 1 --input_json &quot;../scripts/data/pfas/heigh_pfas_0125_1/data.json&quot; --input_label_h5 &quot;../scripts/data/pfas/heigh_pfas_0125_1/data.h5&quot; --log &quot;../log/pfas/high_test_1/&quot; --loss_save_step 2" />
+    <option name="PARAMETERS" value="--id &quot;precursor_formula_mol_mass&quot; --max_epoch 10 --flag_metric &quot;accurate&quot; --batch_size 50 --beam_size 1 --use_precursor 1 --use_mask 0 --use_formula 1 --use_mol_mass 1 --input_json &quot;../scripts/data/pfas/heigh_pfas_0125_1/data.json&quot; --input_label_h5 &quot;../scripts/data/pfas/heigh_pfas_0125_1/data.h5&quot; --load_checkpoint_model 1 --log &quot;../log/pfas/high_test_1/&quot; --loss_save_step 2 --device_id 0" />
     <option name="SHOW_COMMAND_LINE" value="false" />
     <option name="EMULATE_TERMINAL" value="false" />
     <option name="MODULE_MODE" value="false" />

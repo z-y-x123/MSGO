@@ -28,8 +28,8 @@ eval_args = parser.parse_args()
 
 
 # load checkpoint file
-ckpt_path = os.path.join(eval_args.log_path, 'model'+eval_args.append+'.tar')
-checkpoint = torch.load(ckpt_path)
+ckpt_path = os.path.join(eval_args.log_path, 'model'+eval_args.append+'.pth')
+checkpoint = torch.load(ckpt_path,weights_only=False)
 
 # update opt
 opt = checkpoint['opt']
@@ -40,7 +40,7 @@ opt.batch_size = eval_args.batch_size
 dataset = SmilesSet(opt)
 test_loader = build_loader(dataset, 'test', opt.batch_size, False)
 
-model = TransModel(opt).cuda()
+model = TransModel(opt).cuda(opt.device_id)
 model.load_state_dict(checkpoint['model'])
 
 print('Testing')

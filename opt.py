@@ -31,6 +31,11 @@ parser.add_argument('--input_json', type=str,
 parser.add_argument('--input_label_h5', type=str,
     default='./data/lipid/high_p0/data.h5')
 
+
+#load checkpoint model
+parser.add_argument("--load_checkpoint_model",type=int,default=0)
+parser.add_argument("--name_of_load_model",type=str,default="modelbest.pth")
+
 # save params
 parser.add_argument('--log', type=str, default='./log/lipid/high_p0/')
 parser.add_argument('--loss_save_step', type=int, default=25)
@@ -61,6 +66,10 @@ parser.add_argument('--optim_epsilon', type=float, default=1e-8,
 parser.add_argument('--weight_decay', type=float, default=0,
     help='weight_decay')
 
+
+# device setting
+#parser.add_argument("--use_multiple_devices",type=int,default=0)
+parser.add_argument("--device_id",type=int,default=0)
 
 
 args = parser.parse_args()

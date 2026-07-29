@@ -10,6 +10,7 @@ FilePath: /smiles_generate/tools/train.py
 import torch
 import numpy as np
 import random
+import os
 
 # fix random seed
 seed = 1234
@@ -19,8 +20,6 @@ np.random.seed(seed)
 random.seed(seed)
 torch.backends.cudnn.deterministic = True
 from tqdm import tqdm
-import torch.nn as nn
-import torch.optim as optim
 from torch.utils.tensorboard import SummaryWriter
 
 from dataloader import SmilesSet
@@ -60,7 +59,20 @@ def main(opt):
     # tensorboard logger
     tb_summary_writer = SummaryWriter(opt.checkpoint_path)
 
-    model = TransModel(opt).cuda()
+    #use multiple devices or not
+    #if opt.use_multiple_devices:
+        #pass
+    #else:
+    device_id=opt.device_id#choose certain GPU
+
+    #create or load model
+    model = TransModel(opt).cuda(device_id)
+    if opt.load_checkpoint_model:
+        ckpt_path=os.path.join(opt.checkpoint_path,opt.name_of_load_model)
+        checkpoint=torch.load(ckpt_path,weights_only=False)
+        model.load_state_dict(checkpoint["model"])
+
+
     optimizer = build_optimizer(model.parameters(), opt)
     loss_func = LanguageModelCriterion()
 
@@ -75,14 +87,14 @@ def main(opt):
         model.train()
         for i, data in tqdm(enumerate(train_loader)):
             tmp = [data['mz'], data['token'], data['token_mask'], data['mz_mask']]
-            tmp = [_ if _ is None else _.cuda() for _ in tmp]
+            tmp = [_ if _ is None else _.cuda(device_id) for _ in tmp]
             mz, tokens, tokens_mask, mz_mask = tmp
             if opt.use_formula:
-                formula = data['formula'].cuda()
+                formula = data['formula'].cuda(device_id)
             else:
                 formula = None
             if opt.use_mol_mass:
-                mol_mass = data['mol_mass'].cuda()
+                mol_mass = data['mol_mass'].cuda(device_id)
             else:
                 mol_mass = None
 

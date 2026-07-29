@@ -96,11 +96,11 @@ def process_mz(mz, mz_to_ix):
     return list(map(int, id_mz))
 
 
-ckpt_path = os.path.join(eval_args.log_path, 'model'+eval_args.append+'.tar')
-checkpoint = torch.load(ckpt_path)
+ckpt_path = os.path.join(eval_args.log_path, 'model'+eval_args.append+'.pth')
+checkpoint = torch.load(ckpt_path,weights_only=False)
 opt = checkpoint['opt']
 mz_to_ix = opt.mz_to_ix
-model = models.TransModel(opt).cuda() 
+model = models.TransModel(opt).cuda(opt.device_id)
 model.load_state_dict(checkpoint['model'])
 # eval
 print('Testing')
