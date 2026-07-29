@@ -40,8 +40,8 @@ SQLAlchemy==2.0.51
 sympy==1.14.0
 tensorboard==2.20.0
 tensorboard_data_server==0.7.0
-torch==2.13.0+cu132
-torchvision==0.28.0+cu132
+#torch==2.13.0+cu132
+#torchvision==0.28.0+cu132
 tqdm==4.67.1
 typing_extensions==4.15.0
 tzdata==2026.2
