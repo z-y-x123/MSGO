@@ -3,3 +3,5 @@
 __pycache__/
 .DS_Store
 .idea/
+/log/pfas/high_test_1/precursor_formula_mol_mass/model10.pth
+/log/pfas/high_test_1/precursor_formula_mol_mass/modelbest.pth
