@@ -138,4 +138,3 @@ dependencies:
       - torchvision==0.28.0+cu132
       - tqdm==4.67.1
       - typing-extensions==4.15.0
-prefix: D:\Miniconda3\envs\MSGo_re
