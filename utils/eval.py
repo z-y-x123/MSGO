@@ -24,7 +24,7 @@ from tqdm import tqdm
 
 def eval_real_beam1(model, opt, mz, mz_mask):
      with torch.no_grad():
-        mz, mz_mask = mz.cuda(), mz_mask.cuda()
+        mz, mz_mask = mz.cuda(opt.device_id), mz_mask.cuda(opt.device_id)
         seq = model.sample(mz, mz_mask, beam_size=1)
         sents = decode_sequence(opt.ix_to_token, seq.data)
         return sents[0]
@@ -32,11 +32,11 @@ def eval_real_beam1(model, opt, mz, mz_mask):
 
 def eval_real(model, opt, mz, mz_mask, formula_id=None, mol_mass=None, beam_size=10, smiles=None, formula=None, precusor=None, rule=None, rank=10):
     with torch.no_grad():
-        mz, mz_mask = mz.cuda(), mz_mask.cuda()
+        mz, mz_mask = mz.cuda(opt.device_id), mz_mask.cuda(opt.device_id)
         if formula_id is not None:
-            formula_id = formula_id.unsqueeze(-1).long().cuda()
+            formula_id = formula_id.unsqueeze(-1).long().cuda(opt.device_id)
         if mol_mass is not None:
-            mol_mass = mol_mass.unsqueeze(-1).long().cuda()
+            mol_mass = mol_mass.unsqueeze(-1).long().cuda(opt.device_id)
         
         seq = model.sample(mz, mz_mask, formula_id, mol_mass, beam_size)[0]
 
@@ -138,14 +138,14 @@ def eval(model, dataloader, opt):
     with torch.no_grad():
         for i, data in tqdm(enumerate(dataloader)):
             tmp = [data['mz'], data['mz_mask']]
-            tmp = [_ if _ is None else _.cuda() for _ in tmp]
+            tmp = [_ if _ is None else _.cuda(opt.device_id) for _ in tmp]
             mz, mz_mask = tmp
             if opt.use_formula:
-                formula = data['formula'].cuda()
+                formula = data['formula'].cuda(opt.device_id)
             else:
                 formula = None
             if opt.use_mol_mass:
-                mol_mass = data['mol_mass'].cuda()
+                mol_mass = data['mol_mass'].cuda(opt.device_id)
             else:
                 mol_mass = None
             seq = model.sample(mz, mz_mask, formula, mol_mass, beam_size)

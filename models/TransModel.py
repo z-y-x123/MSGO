@@ -65,6 +65,8 @@ class TransModel(nn.Module):
             self.formula_size = None
         self.token_length = opt.token_length
 
+        self.device_id = opt.device_id
+
         self.N_enc = getattr(opt, 'N_enc', 6)
         self.N_dec = getattr(opt, 'N_dec', 6)
         self.d_model = getattr(opt, 'd_model', 512)
@@ -79,7 +81,7 @@ class TransModel(nn.Module):
 
         self.model = self.make_model(self.mz_size, self.token_size, self.mol_mass_size, self.formula_size,
                                     self.N_enc, self.N_dec, self.d_model, self.d_ff, self.h, self.dropout
-                                    )  
+                                    )
 
     def forward(self, mz, tokens, formula = None, mol_mass=None, mz_mask=None, tokens_mask=None):
         mz_mask, tokens_mask = self.prepare_mask(mz, tokens, mz_mask, tokens_mask)
@@ -111,17 +113,18 @@ class TransModel(nn.Module):
         return sampleLogprobs, it
 
         
-    def sample(self, mz, mz_mask, formula, mol_mass, beam_size=1, device='cuda'):
+    def sample(self, mz, mz_mask, formula, mol_mass, beam_size=1):
         batch_size = mz.size(0)
         mz_mask = mz_mask.unsqueeze(-2)
         memory = self.model.encode(mz, mz_mask)
         seq = mz.new_full((batch_size, self.token_length + 1), self.pad_idx, dtype=torch.long)
+        device="cuda:"+f"{self.device_id}"
 
         if beam_size == 1:
             for t in range(self.token_length + 1):
                 if t == 0: # inptut <bos>
                     state = mz.new_full((batch_size, 1), self.bos_idx, dtype=torch.long)    # patial sequence beed predicted
-                out = self.model.decode(memory, mz_mask, state, subsequent_mask(state.size(1)).to('cuda'), formula, mol_mass)
+                out = self.model.decode(memory, mz_mask, state, subsequent_mask(state.size(1)).to(device), formula, mol_mass)
 
                 logprobs = F.log_softmax(self.logit(out[:,-1]),dim=1)
                 if self.unk_idx is not None: # not predict UNK
