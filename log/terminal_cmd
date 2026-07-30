@@ -1,0 +1,2 @@
+命令1:
+tensorboard --logdir D:\MSGO_re\log\pfas\high_test_1\precursor_formula_mol_mass

@@ -72,6 +72,9 @@ parser.add_argument('--weight_decay', type=float, default=0,
 parser.add_argument("--device_id",type=int,default=0)
 
 
+#num_workers
+parser.add_argument("--num_workers",type=int,default=4)
+
 args = parser.parse_args()
 if not os.path.exists(args.log):
     os.makedirs(args.log)

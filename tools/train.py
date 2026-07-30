@@ -38,8 +38,8 @@ def main(opt):
 
     # build dataloader
     dataset = SmilesSet(opt)
-    train_loader = build_loader(dataset, 'train', opt.batch_size, True)
-    val_loader = build_loader(dataset, 'val', opt.batch_size, False)
+    train_loader = build_loader(dataset, 'train', opt.batch_size, True,num_workers=opt.num_workers)
+    val_loader = build_loader(dataset, 'val', opt.batch_size, False,num_workers=opt.num_workers)
 
     opt.ix_to_mz = dataset.ix_to_mz
     opt.ix_to_token = dataset.ix_to_token

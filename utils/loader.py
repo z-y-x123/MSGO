@@ -17,6 +17,7 @@ def build_loader(dataset, split, batch_size, shuffle, num_workers=4):
             batch_size=batch_size,
             shuffle=shuffle,
             num_workers=num_workers,
+            persistent_workers=True,
             collate_fn=dataset.collate_func_train
         ) 
     else:
@@ -25,6 +26,7 @@ def build_loader(dataset, split, batch_size, shuffle, num_workers=4):
             batch_size=batch_size,
             shuffle=shuffle,
             num_workers=num_workers,
+            persistent_workers=True,
             collate_fn=dataset.collate_func_val
         ) 
         
