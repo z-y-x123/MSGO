@@ -33,6 +33,8 @@ from opt import args
 
 
 def main(opt):
+    #set certain GPU
+    torch.cuda.set_device(opt.device_id)
 
     # build dataloader
     dataset = SmilesSet(opt)
@@ -138,6 +140,7 @@ def main(opt):
 
 
 if __name__ == '__main__':
+
     print('model variant params:')
     print('use_precursor:', args.use_precursor)
     print('use_mask:', args.use_mask)
