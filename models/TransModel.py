@@ -231,7 +231,7 @@ class TransModel(nn.Module):
 
                 # move the current group one step forward in time
                     
-                out = self.model.decode(memory, mz_mask, state, subsequent_mask(state.size(1)).to('cuda'), formula, mol_mass) 
+                out = self.model.decode(memory, mz_mask, state, subsequent_mask(state.size(1)).to(device), formula, mol_mass)
                 logprobs = F.log_softmax(self.logit(out[:,-1]),dim=1)
 
             done_beams_table = [sorted(done_beams_table[b], key=lambda x: -x['p'])[:beam_size] for b in range(batch_size)]
