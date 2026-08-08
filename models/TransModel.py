@@ -192,7 +192,7 @@ class TransModel(nn.Module):
             done_beams_table = [[] for _ in range(batch_size)]
 
             state = mz.new_full((batch_size, 1), self.bos_idx, dtype=torch.long) 
-            out = self.model.decode(memory, mz_mask, state, subsequent_mask(state.size(1)).to('cuda'), formula, mol_mass)
+            out = self.model.decode(memory, mz_mask, state, subsequent_mask(state.size(1)).to(device), formula, mol_mass)
             logprobs = F.log_softmax(self.logit(out[:,-1]),dim=1)
 
             memory = repeat_tensors(beam_size, memory)
