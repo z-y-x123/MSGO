@@ -75,6 +75,10 @@ parser.add_argument("--device_id",type=int,default=0)
 #num_workers
 parser.add_argument("--num_workers",type=int,default=4)
 
+#num_train_run
+parser.add_argument("--num_train_run",type=int,default=1)
+
+
 args = parser.parse_args()
 if not os.path.exists(args.log):
     os.makedirs(args.log)
